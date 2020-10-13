@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Vue Mastery</title>
+    <title>Intro Vue 3</title>
     <!-- Import Styles -->
     <link rel="stylesheet" href="./assets/styles.css" />
     <!-- Import Vue.js -->
@@ -25,6 +25,17 @@
             <p v-if="onSale">On Sale</p>
             <p>{{ description }}</p>
             <a :href="link">My github</a>
+            <ul>
+              <li v-for="detail in details" :key="details">
+                {{ detail }}
+              </li>
+            </ul>
+            <div v-for="size in sizes" :key="size">
+              {{ size }}
+            </div>
+            <div v-for="variant in variants" :key="variant.id">
+              {{ variant.color }}
+            </div>
           </div>
         </div>
       </div>
