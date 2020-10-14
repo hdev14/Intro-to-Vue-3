@@ -14,9 +14,13 @@
   <div id="app">
     <div class="nav-bar"></div>
 
-    <div class="cart">Cart({{ cart }})</div>
+    <div class="cart">Cart({{ cart.length }})</div>
 
-    <product-display :premium="premium"></product-display>
+    <product-display
+      :premium="premium"
+      @add-to-cart="incrementCart"
+      @remove-from-cart="decrementCart">
+    </product-display>
   </div>
 
 
@@ -54,8 +58,8 @@
           <button
             @click="addToCart"
             class="button"
-            : class="{ disabledButton: !inStock }"
-            : disabled = "!inStock"
+            :class="{ disabledButton: !inStock }"
+            :disabled = "!inStock"
           >
             Add
           </button >
