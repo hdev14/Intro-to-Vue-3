@@ -62,15 +62,54 @@
             :disabled = "!inStock"
           >
             Add
-          </button >
-        <button @click="removeFromCart" class="button" > Remove</button >
-        </div >
-      </div >
+          </button>
+        <button @click="removeFromCart" class="button" > Remove</button>
+        </div>
+      </div>
+
+      <review-list v-if="reviews.length" :reviews="reviews"></review-list>
+      <review-form @review-submitted="addReview"></review-form>
     </div >
   </script>
 
   <script type="text/x-template" id="product-details">
     <p>{{ description }}</p >
+  </script>
+
+  <script type="text/x-template" id="review-form">
+    <form @submit.prevent="onSubmit" class="review-form">
+      <h3>Leave a review</h3>
+
+      <label for="name">Name:</label>
+      <input v-model="name" type="text" id="name" name="name">
+
+      <label for="">Review:</label>
+      <textarea v-model="review" name="review" id="review" cols="30" rows="10"></textarea>
+
+      <label for="rating">Rating:</label>
+      <select v-model.number="rating" name="rating" id="rating">
+        <option value="5">5</option>
+        <option value="4">4</option>
+        <option value="3">3</option>
+        <option value="2">2</option>
+        <option value="1">1</option>
+      </select>
+
+      <input class="button" type="submit" value="Submit">
+    </form>
+  </script>
+
+  <script type="text/x-template" id="review-list">
+    <div class="review-container">
+      <h3>Reviews:</h3>
+      <ul>
+        <li v-for="(review, index) in reviews" :key="index">
+          {{ review.name }} gave this {{ review.rating }} stars
+          <br>
+          "{{ review.review }}"
+        </li>
+      </ul>
+    </div>
   </script>
 
   <!-- Import App -->
@@ -79,11 +118,14 @@
   <!-- Import App -->
   <script src="./components/ProductDisplay.js"></script>
   <script src="./components/ProductDetails.js"></script>
+  <script src="./components/ReviewForm.js"></script>
+  <script src="./components/ReviewList.js"></script>
 
   <!-- Mount App -->
   <script>
     app.mount('#app')
   </script>
+
 </body>
 
 </html>

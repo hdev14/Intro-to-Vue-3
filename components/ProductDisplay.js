@@ -29,7 +29,8 @@ app.component('product-display', {
           quantity: 0
         }
       ],
-      sizes: [22, 33, 44]
+      sizes: [22, 33, 44],
+      reviews: []
     }
   },
 
@@ -44,6 +45,10 @@ app.component('product-display', {
 
     updateVariant(index) {
       this.selectedVariant = index
+    },
+
+    addReview(review) {
+      this.reviews.push(review)
     }
   },
 
