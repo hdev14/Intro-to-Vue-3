@@ -1,66 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Intro Vue 3</title>
-    <!-- Import Styles -->
-    <link rel="stylesheet" href="./assets/styles.css" />
-    <!-- Import Vue.js -->
-    <script src="https://unpkg.com/vue@3.0.0-beta.12/dist/vue.global.js"></script>
-  </head>
-  <body>
-    <div id="app">
-      <div class="nav-bar"></div>
 
-      <div class="cart">Cart({{ cart }})</div>
+<head>
+  <meta charset="UTF-8" />
+  <title>Intro Vue 3</title>
+  <!-- Import Styles -->
+  <link rel="stylesheet" href="./assets/styles.css" />
+  <!-- Import Vue.js -->
+  <script src="https://unpkg.com/vue@3.0.0-beta.12/dist/vue.global.js"></script>
+</head>
 
-      <div class="product-display">
-        <div class="product-container">
-          <div class="product-image">
-            <img :src="image" :alt="product" :class="{ 'out-of-stock-img': !inStock }">
-          </div>
-          <div class="product-info">
-            <h1>{{ title }}</h1>
-            <p v-if="inStock">In Stock!</p>
-            <p v-else>Out of Stock!</p>
-            <p v-if="onSale">{{ onSaleMessage }}</p>
-            <p>{{ description }}</p>
-            <a :href="link">My github</a>
-            <ul>
-              <li v-for="detail in details" :key="details">
-                {{ detail }}
-              </li>
-            </ul>
-            <div v-for="size in sizes" :key="size">
-              {{ size }}
-            </div>
-            <div
-              class="color-circle"
-              v-for="(variant, index) in variants"
-              :key="variant.id"
-              @mouseover="updateVariant(index)"
-              :style="{ backgroundColor: variant.color}"
-            ></div>
-            <button
-              @click="addToCart"
-              class="button"
-              :class="{ disabledButton: !inStock }"
-              :disabled="!inStock"
-            >
-              Add
-            </button>
-            <button @click="removeFromCart" class="button">Remove</button>
-          </div>
+<body>
+  <div id="app">
+    <div class="nav-bar"></div>
+
+    <div class="cart">Cart({{ cart }})</div>
+
+    <product-display :premium="premium"></product-display>
+  </div>
+
+
+  <script type="text/x-template" id="product-display">
+    <div class="product-display">
+      <div class="product-container">
+        <div class="product-image">
+          <img :src="image" :alt="product" :class="{ 'out-of-stock-img': !inStock }">
         </div>
-      </div>
-    </div>
+        <div class="product-info">
+          <h1>{{ title }}</h1>
+          <p v-if="inStock">In Stock!</p>
+          <p v-else>Out of Stock!</p>
+          <p v-if="onSale">{{ onSaleMessage }}</p>
+          <p>Shipping: {{ shipping }}</p>
 
-    <!-- Import App -->
-    <script src="./main.js"></script>
+          <product-details :details="description"></product-details>
 
-     <!-- Mount App -->
-     <script>
-       app.mount('#app')
-     </script>
-  </body>
+          <a :href="link">My github</a>
+          <ul>
+            <li v-for="detail in details" :key="details">
+              {{ detail }}
+            </li>
+          </ul>
+          <div v-for="size in sizes" :key="size">
+            {{ size }}
+          </div>
+          <div
+            class="color-circle"
+            v-for="(variant, index) in variants"
+            :key="variant.id"
+            @mouseover="updateVariant(index)"
+            :style = "{ backgroundColor: variant.color}"
+          ></div >
+          <button
+            @click="addToCart"
+            class="button"
+            : class="{ disabledButton: !inStock }"
+            : disabled = "!inStock"
+          >
+            Add
+          </button >
+        <button @click="removeFromCart" class="button" > Remove</button >
+        </div >
+      </div >
+    </div >
+  </script>
+
+  <script type="text/x-template" id="product-details">
+    <p>{{ description }}</p >
+  </script>
+
+  <!-- Import App -->
+  <script src="./main.js"></script>
+
+  <!-- Import App -->
+  <script src="./components/ProductDisplay.js"></script>
+  <script src="./components/ProductDetails.js"></script>
+
+  <!-- Mount App -->
+  <script>
+    app.mount('#app')
+  </script>
+</body>
+
 </html>
